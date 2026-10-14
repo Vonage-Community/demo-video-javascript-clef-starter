@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Von Flare AI Insurance Demo</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Lightweight QR generator for dynamic local/remote URLs -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@latest/build/qrcode.min.js"></script>
+</head>
+<body class="portal-body">
+  <header class="portal-header">
+    <h1>Von Flare AI Insurance Demo</h1>
+    <p>Powered by <a href="https://developers.cloudflare.com/workers-ai/models/clef/" target="_blank">Cloudflare Clef Model</a> & <a href="https://developer.vonage.com/en/video/overview" target="_blank">Vonage Video API</a></p>
+    <a href="dashboard.html" target="_blank">Open Agent Dashboard ↗</a>
+  </header>
+
+  <main class="portal-grid">
+    <!-- QR Code Section -->
+    <section class="portal-card">
+      <h2>1. Mobile Claim Intake</h2>
+      <p>Scan with your mobile device to launch the customer experience:</p>
+      <div class="qr-container">
+        <canvas id="qr-canvas"></canvas>
+         <!-- <div id="qrcode"></div> -->
+      </div>
+      <a id="claim-url-link" href="/start-claim.html" class="subtle-link" target="_blank">Or open /start-claim.html manually</a>
+    </section>
+
+    <!-- Sample Inspection Images Section -->
+    <section class="portal-card">
+      <h2>2. Sample Test Pnotos</h2>
+      <p>Need sample damage photos to point your camera at? Here are some different scenarios:</p>
+      
+      <div class="sample-actions">
+        <!-- Zero-JS Invoker Commands: commandfor & command -->
+        <button type="button" class="btn-secondary" commandfor="minor-modal" command="show-modal">
+          View Minor Damage Sample Pictures
+        </button>
+        <button type="button" class="btn-danger" commandfor="total-modal" command="show-modal">
+          View Total Loss Sample Pictures
+        </button>
+        <button type="button" class="btn-primary" commandfor="no-decision-modal" command="show-modal">
+          View No Decision Sample Pictures
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Minor Damage Sample Photos -->
+  <dialog id="minor-modal" class="deck-dialog">
+    <header class="deck-header">
+      <h3>Sample Scenario: Minor Damage</h3>
+      <button type="button" class="close-btn" commandfor="minor-modal" command="close">✕</button>
+    </header>
+    <div class="carousel-container">
+      <div class="carousel-track" id="minor-track">
+        <div class="carousel-slide" id="minor-1">
+          <img src="/samples/minor-driver-front.png" alt="View of the vehicle from the front driver side">
+          <span>Photo 1/4: Front Driver</span>
+        </div>
+        <div class="carousel-slide" id="minor-2">
+          <img src="/samples/minor-passenger-front.png" alt="View of the vehicle from the front passenger side">
+          <span>Photo 2/4: Front Passenger</span>
+        </div>
+        <div class="carousel-slide" id="minor-3">
+          <img src="/samples/minor-passenger-rear.png" alt="View of the vehicle from the rear passenger side">
+          <span>Photo 3/4: Rear Passenger</span>
+        </div>
+        <div class="carousel-slide" id="minor-4">
+          <img src="/samples/minor-driver-rear.png" alt="View of the vehicle from the rear driver side">
+          <span>Photo 4/4: Rear Driver</span>
+        </div>
+      </div>
+      <nav class="carousel-nav">
+        <a href="#minor-1">1</a>
+        <a href="#minor-2">2</a>
+        <a href="#minor-3">3</a>
+        <a href="#minor-4">4</a>
+      </nav>
+    </div>
+  </dialog>
+
+  <!-- Total Loss Sample Photos -->
+  <dialog id="total-modal" class="deck-dialog">
+    <header class="deck-header">
+      <h3>Sample Scenario: Total Loss / Major Collision</h3>
+      <button type="button" class="close-btn" commandfor="total-modal" command="close">✕</button>
+    </header>
+    <div class="carousel-container">
+      <div class="carousel-track" id="total-track">
+        <div class="carousel-slide" id="total-1">
+          <img src="/samples/major-driver-front.png" alt="View of the vehicle from the front driver side">
+          <span>Photo 1/4: Front Driver</span>
+        </div>
+        <div class="carousel-slide" id="total-2">
+          <img src="/samples/major-passenger-front.png" alt="View of the vehicle from the front passenger side">
+          <span>Photo 2/4: Front Passenger</span>
+        </div>
+        <div class="carousel-slide" id="total-3">
+          <img src="/samples/major-passenger-rear.png" alt="View of the vehicle from the rear passenger side">
+          <span>Photo 3/4: Rear Passenger</span>
+        </div>
+        <div class="carousel-slide" id="total-4">
+          <img src="/samples/major-driver-rear.png" alt="View of the vehicle from the rear driver side">
+          <span>Photo 4/4: Rear Driver</span>
+        </div>
+      </div>
+      <nav class="carousel-nav">
+        <a href="#total-1">1</a>
+        <a href="#total-2">2</a>
+        <a href="#total-3">3</a>
+        <a href="#total-4">4</a>
+      </nav>
+    </div>
+  </dialog>
+
+
+  <!-- Total Loss Sample Photos -->
+  <dialog id="no-decision-modal" class="deck-dialog">
+    <header class="deck-header">
+      <h3>Sample Scenario: AI unable to determine damage</h3>
+      <button type="button" class="close-btn" commandfor="no-decision-modal" command="close">✕</button>
+    </header>
+    <div class="carousel-container">
+      <div class="carousel-track" id="no-decision-track">
+        <div class="carousel-slide" id="no-decision-1">
+          <img src="/samples/no_decision-driver-front.png" alt="View of the vehicle from the front driver side">
+          <span>Photo 1/4: Front Driver</span>
+        </div>
+        <div class="carousel-slide" id="no-decision-2">
+          <img src="/samples/no_decision-passenger-front.png" alt="View of the vehicle from the front passenger side">
+          <span>Photo 2/4: Front Passenger</span>
+        </div>
+        <div class="carousel-slide" id="no-decision-3">
+          <img src="/samples/no_decision-passenger-rear.png" alt="View of the vehicle from the rear passenger side">
+          <span>Photo 3/4: Rear Passenger</span>
+        </div>
+        <div class="carousel-slide" id="no-decision-4">
+          <img src="/samples/no_decision-driver-rear.png" alt="View of the vehicle from the rear driver side">
+          <span>Photo 4/4: Rear Driver</span>
+        </div>
+      </div>
+      <nav class="carousel-nav">
+        <a href="#no-decision-1">1</a>
+        <a href="#no-decision-2">2</a>
+        <a href="#no-decision-3">3</a>
+        <a href="#no-decision-4">4</a>
+      </nav>
+    </div>
+  </dialog>
+
+
+  <script>
+    // Dynamically generate QR code to match current hosting port/domain
+    const claimUrl = `${window.location.origin}/start-claim.html`;
+    document.getElementById('claim-url-link').href = claimUrl;
+    QRCode.toCanvas(document.getElementById('qr-canvas'), claimUrl, { width: 220, margin: 2 });
+  </script>
+</body>
+</html>
