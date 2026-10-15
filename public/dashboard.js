@@ -62,7 +62,7 @@ function showEscalationCard(data) {
   pVehicle.innerHTML = '<strong>Vehicle:</strong> ' + data.user.vehicle;
 
   const pTow = document.createElement('p');
-  const towText = data.evaluation.requires_tow.noul > 0.8 ? 'YES' : 'NO';
+  const towText = data.evaluation.requires_tow.noul > 0.5 ? 'YES' : 'NO';
   pTow.innerHTML = '<strong>Tow Required:</strong> ' + towText;
 
   const btn = document.createElement('button');
@@ -156,6 +156,8 @@ function resetStage() {
     customerSession = null;
   }
   agentControls.style.display = 'none';
+  toggleAudioBtn.textContent = 'Mute';
+  toggleVideoBtn.textContent = 'Stop Camera';
   activeClaimPanel.style.display = 'none';
   subscriberEl.innerHTML = '<p>Customer Stream Unavailable</p>';
   publisherEl.innerHTML = '<p>Adjuster Camera</p>';
@@ -166,14 +168,14 @@ toggleAudioBtn.addEventListener('click', (e) => {
   if (!publisher) return;
   isAgentAudioMuted = !isAgentAudioMuted;
   publisher.publishAudio(!isAgentAudioMuted);
-  e.target.textContent = isAgentAudioMuted ? "Unmute" : "Mute";
+  e.target.textContent = isAgentAudioMuted ? 'Unmute' : 'Mute';
 });
 
 toggleVideoBtn.addEventListener('click', (e) => {
   if (!publisher) return;
   isAgentVideoStopped = !isAgentVideoStopped;
   publisher.publishVideo(!isAgentVideoStopped);
-  e.target.textContent = isAgentVideoStopped ? "Start Camera" : "Stop Camera";
+  e.target.textContent = isAgentVideoStopped ? 'Start Camera' : 'Stop Camera';
 });
 
 endCallBtn.addEventListener('click', resetStage);
