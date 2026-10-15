@@ -35,33 +35,6 @@ const photoCountSpan = document.getElementById('photo-count');
 const snapBtn = document.getElementById('btn-snap-photo');
 const submitBtn = document.getElementById('btn-submit-claim');
 
-
-// Create a helper function to compress it using Canvas
-function compressImage(dataUrl, quality = 0.9) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.src = dataUrl;
-    
-    img.onload = () => {
-      // Create an in-memory HTML Canvas element
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      
-      // Set the canvas to match your image dimensions (640x480)
-      canvas.width = img.width;
-      canvas.height = img.height;
-      
-      // Draw the PNG onto the canvas
-      ctx.drawImage(img, 0, 0, img.width, img.height);
-      
-      // Export as a compressed JPEG at 90% quality
-      const compressedDataUri = canvas.toDataURL('image/jpeg', quality);
-      // console.log("Compressed Data URI:", compressedDataUri);
-      resolve(compressedDataUri);
-    };
-  });
-}
-
 // Initialize Vonage Session on Demand
 document.getElementById('btn-start-inspection').addEventListener('click', async () => {
   document.getElementById('btn-start-inspection').disabled = true;
@@ -119,7 +92,6 @@ snapBtn.addEventListener('click', async () => {
   if (!rawBase64) return;
 
   const fullDataUri = `data:image/png;base64,${rawBase64}`;
-  const compressedJpegUri = await compressImage(fullDataUri, 0.9);
   capturedPhotos.push(fullDataUri);
   renderGallery();
   updateSnapButton();
