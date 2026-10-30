@@ -1,4 +1,4 @@
-
+{
     "name": "Vonage Video API x Cloudflare Clef Starter",
     "image": "mcr.microsoft.com/devcontainers/javascript-node:24",
     "hostRequirements": {
