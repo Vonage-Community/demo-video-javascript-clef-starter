@@ -2,7 +2,7 @@
   /* Light Mode Defaults */
   --bg-color: #f4f5f7;
   --surface-color: #ffffff;
-  --surface-card: #ffffff;
+  --surface-card: #4ABB39;
   --text-primary: #1a1a2e;
   --text-secondary: #5a5a6e;
   --border-color: #e1e1e8;
@@ -22,7 +22,7 @@
     /* Dark Mode Overrides */
     --bg-color: #121212;
     --surface-color: #1e1e1e;
-    --surface-card: #1e1e1e;
+    --surface-card: #066A03;
     --text-primary: #e0e0e0;
     --text-secondary: #a0a0a0;
     --border-color: #333333;
